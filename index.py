@@ -13,7 +13,11 @@ my_cookie["pref_lang"] = "fr"
 my_cookie["pref_lang"]["expires"] = expiration
 #my_cookie["pref_lang"]["expires"] = True
 
- 
+form = cgi.FieldStorage()
+if form.getvalue("nom"):
+    n=int(form.getvalue("nom"))
+else:
+    n=2
 print(my_cookie.output())
 print("Content-type: text/html; charset=utf-8\n")
 print("""<!DOCTYPE html>
@@ -21,16 +25,29 @@ print("""<!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
     <style> 
-            span{
-            background-color:rgb(8, 184, 52);;
-                }
+            body{
+                background-color:rgb(0, 0, 0);
+                color:rgb(8, 184, 52);
+            }
+           
     </style>
     <title>Page test python html</title>
 </head><body>""")
 #------------------------------------------work--------------------------------------------------
-for i in range(1,50):
-  
+for i in range(n+1):
     print("<span>"+i*"*"+"</span><br>")
+    
+print("""
+    <form method="post">
+ 
+        <fieldset>
+            <legend>Ajouter un nombre de star</legend> 
+     
+            <label for="nom">Quel est le nombre ?</label>
+            <input type="number" name="nom" id="nom" />
+        <input type="submit" value="Envoyer" />
+        </fieldset>
+   </form>""")
 #-----------------------------------------end work-----------------------------------------------
 print("""</body>
 </html>""")
