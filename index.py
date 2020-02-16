@@ -3,6 +3,9 @@ import cgi
 import http.cookies
 import datetime
 import os
+import sys,codecs
+#gestion encodage
+sys.stdout = codecs.getwriter("utf-8")(sys.stdout.detach())
 expiration = datetime.datetime.now() + datetime.timedelta(days=365)
 expiration = expiration.strftime("%a,%d-%b-%Y %H:%M:%S")
 my_cookie = http.cookies.SimpleCookie()
@@ -38,7 +41,4 @@ html_footer = """
 </html>
 
 """
-if "HTTP_COOKIE" in os.environ:
-    print(html_head+html_body+os.environ["HTTP_COOKIE"]+html_footer)
-else:
-    print(html_head+html_body+"<h1>HTTP_COOKIE n'existe pas</h1>"+html_footer)
+print(my_cookie["pref_lang"])
